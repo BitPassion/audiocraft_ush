@@ -31,7 +31,6 @@ print(IS_BATCHED)
 MAX_BATCH_SIZE = 12
 BATCHED_DURATION = 15
 INTERRUPTING = False
-MBD = None
 # We have to wrap subprocess call to clean a bit the log when using gr.make_waveform
 _old_call = sp.call
 
@@ -96,9 +95,8 @@ def load_model(version='facebook/musicgen-melody'):
 
 def load_diffusion():
     global MBD
-    if MBD is None:
-        print("loading MBD")
-        MBD = MultiBandDiffusion.get_mbd_musicgen()
+    print("loading MBD")
+    MBD = MultiBandDiffusion.get_mbd_musicgen()
 
 
 def _do_predictions(texts, melodies, duration, progress=False, **gen_kwargs):
@@ -322,7 +320,7 @@ def ui_full(launch_kwargs):
             1. Use the default GAN based compression model
             2. Use MultiBand Diffusion from (paper linknano )
 
-            When using `facebook/musicgen-melody`, you can optionally provide a reference audio from
+            When using `facebook/musicgen-melody`, ou can optionally provide a reference audio from
             which a broad melody will be extracted. The model will then try to follow both
             the description and melody provided.
 
